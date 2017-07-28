@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const baseURL = process.env.API_BASE_URL || "https://api.line.me/v2/bot/";
+const apiURL = (path) => baseURL + path;
+exports.reply = apiURL("message/reply");
+exports.push = apiURL("message/push");
+exports.multicast = apiURL("message/multicast");
+exports.content = (messageId) => apiURL(`message/${messageId}/content`);
+exports.profile = (userId) => apiURL(`profile/${userId}`);
+exports.leaveGroup = (groupId) => apiURL(`group/${groupId}/leave`);
+exports.leaveRoom = (roomId) => apiURL(`room/${roomId}/leave`);
