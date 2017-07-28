@@ -47,7 +47,39 @@ function handleEvent(event) {
     send("I'm a bot for 11A");
   }
   if(txt === "!HW") {
-    send("Work in Progress");
+    return client.replyMessage({
+      "type": "template",
+      "altText": "Homeworks",
+      "template": {
+          "type": "carousel",
+          "columns": [
+              {
+                "thumbnailImageUrl": "https://cdn.pixabay.com/photo/2015/03/10/22/47/pc-667863_640.png",
+                "title": "IT HW",
+                "text": "Paper",
+                "actions": [
+                    {
+                        "type": "postback",
+                        "label": "Remind Later",
+                        "data": "action=buy&itemid=111"
+                    }
+                ]
+              },
+              {
+                "thumbnailImageUrl": "https://i.pinimg.com/originals/51/60/9c/51609c5ad31c0b46db2f5bf3c6d34d7d.jpg",
+                "title": "Math HW",
+                "text": "Pg. 20, No. 1",
+                "actions": [
+                    {
+                        "type": "postback",
+                        "label": "Remind Later",
+                        "data": "action=buy&itemid=222"
+                    }
+                ]
+              }
+          ]
+      }
+    })
   }
   if (txt === "!leave") {
     send("How about no");
