@@ -46,7 +46,7 @@ function handleEvent(event) {
   if (txt === "!about") {
     send("I'm a bot for 11A");
   }
-  if(txt === "!HW") {
+  if(txt === "!agenda") {
     return client.replyMessage(event.replyToken, {
       "type": "template",
       "altText": "Homeworks",
@@ -56,7 +56,8 @@ function handleEvent(event) {
               {
                 "thumbnailImageUrl": "https://cdn.pixabay.com/photo/2015/03/10/22/47/pc-667863_640.png",
                 "title": "IT HW",
-                "text": "Paper",
+                "text": `Due: Monday, 31 July 2017
+                Paper`,
                 "actions": [
                     {
                         "type": "postback",
@@ -67,8 +68,8 @@ function handleEvent(event) {
               },
               {
                 "thumbnailImageUrl": "https://i.pinimg.com/originals/51/60/9c/51609c5ad31c0b46db2f5bf3c6d34d7d.jpg",
-                "title": "Math HW",
-                "text": "Pg. 20, No. 1",
+                "title": "Math Quiz",
+                "text": "Date: Monday, 31 July 2017",
                 "actions": [
                     {
                         "type": "postback",
