@@ -31,24 +31,23 @@ app.post('/webhook', line.middleware(config), (req, res) => {
 
 // event handler
 function handleEvent(event) {
-  if (event.type !== 'message' || event.message.type !== 'text') {
+  function send(text) {
+    const msg = { type: 'text', text: text };
+    return client.replyMessage(event.replyToken, msg);
+  }
+  if (event.type !== 'message' || event.message.type !== 'text' ) {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
-  if (event.message.text === "!help") {
-      // const message = event.source.userId === "U42ca099742f266182506b30f9f306395" ? "You're the ADMIN" : "Meh, try again";
-  
-      // client.getProfile(event.source.userId).then((profile) => {
-      //     const echo = { type: 'text', text: profile.userId };
-
-      //   // use reply API
-      //   return client.replyMessage(event.replyToken, echo);
-      // });
-    //  create a echoing text message
-      const echo = { type: 'text', text: `Help not yet available :(` };
-
-      // use reply API
-      return client.replyMessage(event.replyToken, echo);
+  let txt = event.message.text;
+  if (txt === "!help") {
+      send("Help not yet available");  
+  }
+  if (txt === "!about") {
+    send("I'm a bot for 11A");
+  }
+  if(txt === "!HW") {
+    send("Work in Progress");
   }
 }
 
