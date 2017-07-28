@@ -37,7 +37,7 @@ function handleEvent(event) {
   }
   
   client.getProfile('user_id').then((profile) => {
-      const echo = { type: profile.toString(), text: event.message.text };
+      const echo = { type: event.user.userId, text: event.message.text };
 
     // use reply API
     return client.replyMessage(event.replyToken, echo);
