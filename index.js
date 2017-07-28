@@ -49,6 +49,9 @@ function handleEvent(event) {
   if(txt === "!HW") {
     send("Work in Progress");
   }
+  if (txt === "!leave") {
+    send("How about no");
+  }
 }
 
 // listen on port
