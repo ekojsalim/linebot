@@ -36,11 +36,17 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
   
-  // create a echoing text message
-  const echo = { type: 'text', text: event.message.text };
+  client.getProfile(profile.userId).then((profile) => {
+      const echo = { type: event.user.userId, text: event.message.text };
 
-  // use reply API
-  return client.replyMessage(event.replyToken, echo);
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
+  });
+  // create a echoing text message
+  // const echo = { type: 'text', text: event.message.text };
+
+  // // use reply API
+  // return client.replyMessage(event.replyToken, echo);
 }
 
 // listen on port
