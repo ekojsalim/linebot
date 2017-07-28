@@ -39,7 +39,7 @@ function handleEvent(event) {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
-  let txt = event.message.text;
+  let txt = event.message.text.toLowerCase();
   if (txt === "!help") {
       send("Help not yet available");  
   }
