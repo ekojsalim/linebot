@@ -47,7 +47,7 @@ function handleEvent(event) {
     send("I'm a bot for 11A");
   }
   if(txt === "!HW") {
-    return client.replyMessage({
+    return client.replyMessage(event.replyToken, {
       "type": "template",
       "altText": "Homeworks",
       "template": {
