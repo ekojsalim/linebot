@@ -85,6 +85,9 @@ function handleEvent(event) {
   if (txt === "!leave") {
     send("How about no");
   }
+  if (txt[0] === "!") {
+    send("404: Command not found!");
+  }
 }
 
 // listen on port
