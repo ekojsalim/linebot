@@ -36,17 +36,18 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
   
-  client.getProfile(event.source.userId).then((profile) => {
-      const echo = { type: 'text', text: profile.userId };
+  const message = event.source.userId === "U42ca099742f266182506b30f9f306395" ? "You're the ADMIN" : "Meh, try again";
+  // client.getProfile(event.source.userId).then((profile) => {
+  //     const echo = { type: 'text', text: profile.userId };
 
-    // use reply API
-    return client.replyMessage(event.replyToken, echo);
-  });
-  // create a echoing text message
-  // const echo = { type: 'text', text: event.message.text };
+  //   // use reply API
+  //   return client.replyMessage(event.replyToken, echo);
+  // });
+//  create a echoing text message
+  const echo = { type: 'text', text: message };
 
-  // // use reply API
-  // return client.replyMessage(event.replyToken, echo);
+  // use reply API
+  return client.replyMessage(event.replyToken, echo);
 }
 
 // listen on port
