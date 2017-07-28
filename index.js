@@ -36,7 +36,7 @@ function handleEvent(event) {
     return Promise.resolve(null);
   }
   
-  client.getProfile(event.user.userId).then((profile) => {
+  client.getProfile(event.source.userId).then((profile) => {
       const echo = { type: 'text', text: profile.userId };
 
     // use reply API
