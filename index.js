@@ -35,12 +35,18 @@ function handleEvent(event) {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
+  
+  client.getProfile('user_id').then((profile) => {
+      const echo = { type: profile.toString(), text: event.message.text };
 
+    // use reply API
+    return client.replyMessage(event.replyToken, echo);
+  });
   // create a echoing text message
-  const echo = { type: 'text', text: event.message.text };
+  // const echo = { type: 'text', text: event.message.text };
 
-  // use reply API
-  return client.replyMessage(event.replyToken, echo);
+  // // use reply API
+  // return client.replyMessage(event.replyToken, echo);
 }
 
 // listen on port
