@@ -86,7 +86,7 @@ function handleEvent(event) {
     send("How about no");
   }
   if (txt[0] === "!") {
-    send("404: Command not found!");
+    return send("404: Command not found!");
   }
 }
 
