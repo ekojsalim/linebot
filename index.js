@@ -109,21 +109,9 @@ function handleEvent(event) {
     "type": "carousel",
     "columns": [
       {
-        "thumbnailImageUrl": "http:\/\/img.freepik.com\/free-vector\/biology-elements-design_1300-177.jpg?size=338&ext=jpg",
+        "thumbnailImageUrl": "http://img.freepik.com/free-vector/biology-elements-design_1300-177.jpg?size=338&ext=jpg",
         "title": "Biology Quiz Aug 16th 17",
         "text": "Quiz Cells",
-        "actions": [
-          {
-            "type": "postback",
-            "label": "Remind Later",
-            "data": "action=buy&itemid=111"
-          }
-        ]
-      },
-      {
-        "thumbnailImageUrl": "https:\/\/cdn.dribbble.com\/users\/142196\/screenshots\/1094556\/buddha.png",
-        "title": "Religion Quiz Aug 24th 17",
-        "text": "Quiz Tiwah & Paritta",
         "actions": [
           {
             "type": "postback",
