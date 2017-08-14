@@ -48,6 +48,26 @@ tasks.sort((a,b) => {
 return a.date.isAfter(b.date);
 });
 
+let agendaObject = {
+  "type": "template",
+  "altText": "Agenda",
+  "template": {
+      "type": "carousel",
+      "columns": []
+  }
+};
+let agendaString = ``;
+tasks.forEach((a)=> {
+  let tempObj = {
+    "thumbnailImageUrl": imgUrl[a.lesson],
+    "title": `${a.title} ${a.date.format("MMM Do YY")}`,
+    "text": a.text,
+  };
+  agendaObject.template.columns.push(tempObj);
+  agendaString.concat(a.text);
+  agendaString.concat("\n");
+});
+
 // event handler
 function handleEvent(event) {
   function send(text) {
@@ -70,30 +90,7 @@ function handleEvent(event) {
     send("I'm a bot for 11A");
   }
   if(txt === "!agenda") {
-    let agendaObject = {
-      "type": "template",
-      "altText": "Agenda",
-      "template": {
-          "type": "carousel",
-          "columns": []
-      }
-    };
-    let agendaString = ``;
-    tasks.forEach((a)=> {
-      let tempObj = {
-        "thumbnailImageUrl": imgUrl[a.lesson],
-        "title": `${a.title} ${a.date.format("MMM Do YY")}`,
-        "text": a.text,
-      };
-      agendaObject.template.columns.push(tempObj);
-      agendaString.concat(a.text);
-      agendaString.concat("\n");
-    });
-    console.log(agendaString);
-    return client.replyMessage(event.replyToken, {
-  type: 'text',
-  text: agendaString,
-}).catch((err)=> {console.error(err)});
+    return client.replyMessage(event.replyToken, agendaObject).catch((err)=> {console.error(err)});
   }
   if (txt === "!leave") {
     send("How about no");
