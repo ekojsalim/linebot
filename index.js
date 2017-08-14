@@ -109,7 +109,7 @@ function handleEvent(event) {
         "type": "carousel",
         "columns": [
           {
-            "thumbnailImageUrl": "http://img.freepik.com/free-vector/biology-elements-design_1300-177.jpg?size=338&ext=jpg",
+            "thumbnailImageUrl": "https://i.pinimg.com/originals/51/60/9c/51609c5ad31c0b46db2f5bf3c6d34d7d.jpg",
             "title": "Biology Quiz Aug 16th 17",
             "text": "Quiz Cells",
             "actions": [
