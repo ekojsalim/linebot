@@ -64,7 +64,7 @@ tasks.forEach((a)=> {
     "text": a.text,
   };
   agendaObject.template.columns.push(tempObj);
-  agendaString = agendaString.concat(a.text);
+  agendaString = agendaString.concat(a.text + `(${a.date.format("MMM Do YY")})`);
   agendaString = agendaString.concat("\n");
 });
 
@@ -90,8 +90,9 @@ function handleEvent(event) {
     send("I'm a bot for 11A");
   }
   if(txt === "!agenda") {
-    console.log(agendaString);
-    send(agendaString);
+    console.log(agendaObject);
+    return client.replyMessage(event.replyToken, [agendaObject,agendaString]);
+    // send(agendaString);
   }
   if (txt === "!leave") {
     send("How about no");
