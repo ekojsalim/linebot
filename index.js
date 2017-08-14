@@ -64,8 +64,8 @@ tasks.forEach((a)=> {
     "text": a.text,
   };
   agendaObject.template.columns.push(tempObj);
-  agendaString.concat(a.text);
-  agendaString.concat("\n");
+  agendaString = agendaString.concat(a.text);
+  agendaString = agendaString.concat("\n");
 });
 
 // event handler
