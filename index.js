@@ -106,21 +106,21 @@ function handleEvent(event) {
   "type": "template",
   "altText": "Agenda",
   "template": {
-    "type": "carousel",
-    "columns": [
-      {
-        "thumbnailImageUrl": "http://img.freepik.com/free-vector/biology-elements-design_1300-177.jpg?size=338&ext=jpg",
-        "title": "Biology Quiz Aug 16th 17",
-        "text": "Quiz Cells",
-        "actions": [
+        "type": "carousel",
+        "columns": [
           {
-            "type": "postback",
-            "label": "Remind Later",
-            "data": "action=buy&itemid=111"
-          }
-        ]
-      }
-    ]
+            "thumbnailImageUrl": "http://img.freepik.com/free-vector/biology-elements-design_1300-177.jpg?size=338&ext=jpg",
+            "title": "Biology Quiz Aug 16th 17",
+            "text": "Quiz Cells",
+            "actions": [
+                {
+                    "type": "postback",
+                    "label": "Remind Later",
+                    "data": "action=buy&itemid=111"
+                }
+            ]
+          },
+      ]
   }
 }).catch((err)=> console.error(err));
     // send(agendaString);
