@@ -38,7 +38,9 @@ let imgUrl = {
   religion: "https://cdn.dribbble.com/users/142196/screenshots/1094556/buddha.png",
   bi: "https://i.imgbox.com/lviJnYVp.jpg",
   pkn: "https://i.imgbox.com/bJfeoYQD.jpg",
-  english: "https://i.imgbox.com/qS1Z7gla.jpg"
+  english: "https://i.imgbox.com/qS1Z7gla.jpg",
+  chemistry: "https://i.imgbox.com/Ju3Cyw1J.jpg",
+  mandarin: "https://i.imgbox.com/tkpjwirp.jpg"
 };
 
 let admin = ["U42ca099742f266182506b30f9f306395"]
@@ -118,7 +120,7 @@ function load() {
                     },],
       };
       agendaObject.template.columns.push(tempObj);
-      agendaString = agendaString.concat(a.lesson + " - " + a.text + `(${a.date.format("dddd, Do MMMM")})`);
+      agendaString = agendaString.concat(a.lesson + " - " + a.text + `(${a.date.format("dddd, Do MMMM")})[#${a.id}]`);
       agendaString = agendaString.concat("\n");
     });
   });
@@ -158,6 +160,8 @@ function handleEvent(event) {
     bi
     pkn
     english
+    chemistry
+    mandarin
     Contoh: !add IT,=Presentation,=Topik sesuai group,=15-08-2017`);
   };
   if(txt === "!about") {
