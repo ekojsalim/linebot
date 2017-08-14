@@ -90,8 +90,8 @@ function handleEvent(event) {
     send("I'm a bot for 11A");
   }
   if(txt === "!agenda") {
-    console.log(agendaObject);
-    send(agendaString);
+    console.log(agendaString);
+    send("It's kinda working");
   }
   if (txt === "!leave") {
     send("How about no");
