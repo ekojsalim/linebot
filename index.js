@@ -91,7 +91,7 @@ function handleEvent(event) {
     });
     return client.replyMessage(event.replyToken, {
   type: 'text',
-  text: 'hello, world',
+  text: agendaString,
 }).catch((err)=> {console.error(err)});
   }
   if (txt === "!leave") {
