@@ -83,6 +83,8 @@ function load() {
     else {
       tasks = JSON.parse(res.toString());
     }
+    console.log(tasks);
+    console.log(JSON.stringify(tasks));
     tasks.filter((a) => {
       a.date.isAfter(moment())
     });
