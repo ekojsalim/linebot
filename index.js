@@ -54,7 +54,7 @@ function handleEvent(event) {
     const msg = { type: 'text', text: text };
     return client.replyMessage(event.replyToken, msg);
   }
-  if (event.type !== 'message' || 6yevent.message.type !== 'text' ) {
+  if (event.type !== 'message' || event.message.type !== 'text' ) {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
