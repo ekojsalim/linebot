@@ -29,8 +29,8 @@ app.post('/webhook', line.middleware(config), (req, res) => {
 let imgUrl = {
   it: "https://cdn.pixabay.com/photo/2015/03/10/22/47/pc-667863_640.png",
   math: "https://i.pinimg.com/originals/51/60/9c/51609c5ad31c0b46db2f5bf3c6d34d7d.jpg",
-  biology: "http://img.freepik.com/free-vector/biology-elements-design_1300-177.jpg?size=338&ext=jpg",
-  physics: "http://img.freepik.com/free-vector/background-about-physics_1284-698.jpg?size=338&ext=jpg",
+  biology: "https://img.freepik.com/free-vector/biology-elements-design_1300-177.jpg?size=338&ext=jpg",
+  physics: "https://img.freepik.com/free-vector/background-about-physics_1284-698.jpg?size=338&ext=jpg",
   religion: "https://cdn.dribbble.com/users/142196/screenshots/1094556/buddha.png",
   bi: "https://i.imgbox.com/lviJnYVp.jpg",
   pkn: "https://i.imgbox.com/bJfeoYQD.jpg",
@@ -102,27 +102,7 @@ function handleEvent(event) {
   }
   if(txt === "!agenda") {
     console.log(JSON.stringify(agendaObject));
-    return client.replyMessage(event.replyToken,{
-  "type": "template",
-  "altText": "Agenda",
-  "template": {
-        "type": "carousel",
-        "columns": [
-          {
-            "thumbnailImageUrl": "https://i.pinimg.com/originals/51/60/9c/51609c5ad31c0b46db2f5bf3c6d34d7d.jpg",
-            "title": "Biology Quiz Aug 16th 17",
-            "text": "Quiz Cells",
-            "actions": [
-                {
-                    "type": "postback",
-                    "label": "Remind Later",
-                    "data": "action=buy&itemid=111"
-                }
-            ]
-          },
-      ]
-  }
-}).catch((err)=> console.error(err));
+    return client.replyMessage(event.replyToken,[agendaObject, {type:"text", text: agendaString}]).catch((err)=> console.error(err));
     // send(agendaString);
   }
   if (txt === "!leave") {
