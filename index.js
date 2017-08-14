@@ -89,6 +89,7 @@ function handleEvent(event) {
       agendaString.concat(a.text);
       agendaString.concat("\n");
     });
+    console.log(agendaString);
     return client.replyMessage(event.replyToken, {
   type: 'text',
   text: agendaString,
