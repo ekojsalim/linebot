@@ -83,13 +83,16 @@ function handleEvent(event) {
       let tempObj = {
         "thumbnailImageUrl": imgUrl[a.lesson],
         "title": `${a.title} ${a.date.format("MMM Do YY")}`,
-        "text": a.text
+        "text": a.text,
       };
       agendaObject.template.columns.push(tempObj);
       agendaString.concat(a.text);
       agendaString.concat("\n");
     });
-    client.replyMessage(event.replyToken, agendaObject).catch((err)=> {console.error(err)});
+    return client.replyMessage(event.replyToken, {
+  type: 'text',
+  text: 'hello, world',
+}).catch((err)=> {console.error(err)});
   }
   if (txt === "!leave") {
     send("How about no");
