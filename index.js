@@ -97,7 +97,7 @@ function handleEvent(event) {
   }
   if(txt === "!agenda") {
     console.log(agendaObject.template.columns);
-    return client.replyMessage(event.replyToken,[agendaObject,{ type: 'text', text: agendaString }]);
+    return client.replyMessage(event.replyToken,{ type: 'text', text: agendaString });
     // send(agendaString);
   }
   if (txt === "!leave") {
