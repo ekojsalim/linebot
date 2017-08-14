@@ -3,6 +3,10 @@
 const line = require('@line/bot-sdk');
 const express = require('express');
 const moment = require('moment');
+const redis = require("redis");
+
+//redis client
+var red = redis.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true});
 
 // create LINE SDK config from env variables
 const config = {
@@ -35,49 +39,57 @@ let imgUrl = {
   bi: "https://i.imgbox.com/lviJnYVp.jpg",
   pkn: "https://i.imgbox.com/bJfeoYQD.jpg",
   english: "https://i.imgbox.com/qS1Z7gla.jpg"
-}
+};
 
 let tasks = [{
-lesson: "biology",
-title:'Biology Quiz',
-text: 'Quiz Cells',
-date: moment("16-08-2017", "DD-MM-YYYY")
-},{
-lesson: "religion",
-title:'Religion Quiz',
-text: 'Quiz Tiwah & Paritta',
-date: moment("24-08-2017", "DD-MM-YYYY")
-}
+  lesson: "biology",
+  title:'Biology Quiz',
+  text: 'Quiz Cells',
+  date: moment("16-08-2017", "DD-MM-YYYY")}
+  ,
+  {
+  lesson: "religion",
+  title:'Religion Quiz',
+  text: 'Quiz Tiwah & Paritta',
+  date: moment("24-08-2017", "DD-MM-YYYY")}
 ];
-
-tasks.sort((a,b) => {
-return a.date.isAfter(b.date);
-});
-
-let agendaObject = {
-  "type": "template",
-  "altText": "Agenda",
-  "template": {
-      "type": "carousel",
-      "columns": []
-  }
-};
+let agendaObject;
 let agendaString = '';
-tasks.forEach((a)=> {
-  let tempObj = {
-    "thumbnailImageUrl": imgUrl[a.lesson],
-    "title": `${a.title} ${a.date.format("MMM Do YY")}`,
-    "text": a.text,
-    "actions": [{
-                    "type": "postback",
-                    "label": "Remind Later",
-                    "data": "action=buy&itemid=111"
-                },],
+
+function load() {
+  tasks.sort((a,b) => {
+    return a.date.isAfter(b.date);
+  });
+
+  //Reset the Global Data
+  agendaObject = {
+    "type": "template",
+    "altText": "Agenda",
+    "template": {
+        "type": "carousel",
+        "columns": []
+    }
   };
-  agendaObject.template.columns.push(tempObj);
-  agendaString = agendaString.concat(a.lesson[0].toUpperCase() + a.lesson.slice(1) + "- " + a.text + `(${a.date.format("MMM Do YY")})`);
-  agendaString = agendaString.concat("\n");
-});
+  agendaString = '';
+
+  tasks.forEach((a)=> {
+    let tempObj = {
+      "thumbnailImageUrl": imgUrl[a.lesson],
+      "title": `${a.title} ${a.date.format("MMM Do YY")}`,
+      "text": a.text,
+      "actions": [{
+                      "type": "postback",
+                      "label": "Remind Later",
+                      "data": "action=buy&itemid=111"
+                  },],
+    };
+    agendaObject.template.columns.push(tempObj);
+    agendaString = agendaString.concat(a.lesson[0].toUpperCase() + a.lesson.slice(1) + "- " + a.text + `(${a.date.format("MMM Do YY")})`);
+    agendaString = agendaString.concat("\n");
+  });
+}
+
+load();
 
 // event handler
 function handleEvent(event) {
@@ -104,6 +116,18 @@ function handleEvent(event) {
     console.log(JSON.stringify(agendaObject));
     return client.replyMessage(event.replyToken,[agendaObject, {type:"text", text: agendaString}]).catch((err)=> console.error(err));
     // send(agendaString);
+  }
+  if(txt.split(" ")[0] === "!add") {
+    let x = txt.split(" ").slice(1);
+    let tempObj = {
+      lesson: x[0],
+      title: x[1],
+      text: x[2],
+      date: moment(x[3], "DD-MM-YYYY")
+    };
+    tasks.push(tempObj);
+    load();
+    send("Successfully added an entry.");
   }
   if (txt === "!leave") {
     send("How about no");
