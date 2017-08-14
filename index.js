@@ -43,20 +43,21 @@ let imgUrl = {
 
 let admin = ["U42ca099742f266182506b30f9f306395"]
 
-let tasks = [{
-  id: "uwvi6",
-  lesson: "Biology",
-  title:'Biology Quiz',
-  text: 'Quiz Cells',
-  date: moment("16-08-2017", "DD-MM-YYYY")}
-  ,
-  {
-  id: "l668d",
-  lesson: "Religion",
-  title:'Religion Quiz',
-  text: 'Quiz Tiwah & Paritta',
-  date: moment("24-08-2017", "DD-MM-YYYY")}
-];
+// let tasks = [{
+//   id: "uwvi6",
+//   lesson: "Biology",
+//   title:'Biology Quiz',
+//   text: 'Quiz Cells',
+//   date: moment("16-08-2017", "DD-MM-YYYY")}
+//   ,
+//   {
+//   id: "l668d",
+//   lesson: "Religion",
+//   title:'Religion Quiz',
+//   text: 'Quiz Tiwah & Paritta',
+//   date: moment("24-08-2017", "DD-MM-YYYY")}
+// ];
+let tasks = [];
 let agendaObject;
 let agendaString = '';
 
@@ -70,40 +71,42 @@ function makeid() {
 }
 
 function load() {
-  
-  tasks.filter((a) => {
-    a.date.isAfter(moment())
-  });
+  red.get("tasks", function(err, res) {
+    tasks = JSON.parse(res.toString());
+    tasks.filter((a) => {
+      a.date.isAfter(moment())
+    });
 
-  tasks.sort((a,b) => {
-    return a.date.isAfter(b.date);
-  });
+    tasks.sort((a,b) => {
+      return a.date.isAfter(b.date);
+    });
 
-  //Reset the Global Data
-  agendaObject = {
-    "type": "template",
-    "altText": "Agenda",
-    "template": {
-        "type": "carousel",
-        "columns": []
-    }
-  };
-  agendaString = '==AGENDA=='.concat("\n");
-
-  tasks.forEach((a)=> {
-    let tempObj = {
-      "thumbnailImageUrl": imgUrl[a.lesson.toLowerCase()],
-      "title": `${a.title} (${a.date.format("l")})`,
-      "text": a.text + ` (#${a.id})`,
-      "actions": [{
-                      "type": "postback",
-                      "label": "Remind Later",
-                      "data": "action=buy&itemid=111"
-                  },],
+    //Reset the Global Data
+    agendaObject = {
+      "type": "template",
+      "altText": "Agenda",
+      "template": {
+          "type": "carousel",
+          "columns": []
+      }
     };
-    agendaObject.template.columns.push(tempObj);
-    agendaString = agendaString.concat(a.lesson + " - " + a.text + `(${a.date.format("dddd, Do MMMM")})`);
-    agendaString = agendaString.concat("\n");
+    agendaString = '==AGENDA=='.concat("\n");
+
+    tasks.forEach((a)=> {
+      let tempObj = {
+        "thumbnailImageUrl": imgUrl[a.lesson.toLowerCase()],
+        "title": `${a.title} (${a.date.format("l")})`,
+        "text": a.text + ` (#${a.id})`,
+        "actions": [{
+                        "type": "postback",
+                        "label": "Remind Later",
+                        "data": "action=buy&itemid=111"
+                    },],
+      };
+      agendaObject.template.columns.push(tempObj);
+      agendaString = agendaString.concat(a.lesson + " - " + a.text + `(${a.date.format("dddd, Do MMMM")})`);
+      agendaString = agendaString.concat("\n");
+    });
   });
 }
 
@@ -147,6 +150,9 @@ function handleEvent(event) {
     return send("I'm a bot for 11A");
   }
   if(txt === "!agenda") {
+    if(tasks.length === 0) {
+      return send("BEBAS!");
+    }
     return client.replyMessage(event.replyToken,[agendaObject, {type:"text", text: agendaString}]).catch((err)=> console.error(err));
   }
   if(txt.split(" ")[0] === "!add") {
@@ -164,8 +170,10 @@ function handleEvent(event) {
       date: moment(x[3], "DD-MM-YYYY")
     };
     tasks.push(tempObj);
-    load();
-    return send("Successfully added an entry.");
+    return red.set("tasks", JSON.stringify(tasks), function(err,res) {
+      load();
+      return send("Successfully added an entry.");
+    });
   }
   if(txt.split(" ")[0] === "!remove") {
     if(!admin.includes(event.source.userId)) {
