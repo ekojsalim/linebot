@@ -132,7 +132,7 @@ function handleEvent(event) {
   if(txt === "!addhelp") {
     return send(`Format untuk add: !add (Subject),=(Title),=(Text),=(Date)
     Date harus dalam format(DD/MM/YYYY), contoh: 01/01/2017
-    Subject harus menggunakan salah satu:
+    Subject harus menggunakan salah satu(Caps Insensitive):
     it
     math
     biology
@@ -141,7 +141,7 @@ function handleEvent(event) {
     bi
     pkn
     english
-    Caps gk masalah buat subject`);
+    Contoh: !add IT,=Presentation,=Topik sesuai group,=15-08-2017`);
   };
   if(txt === "!about") {
     return send("I'm a bot for 11A");
@@ -167,7 +167,7 @@ function handleEvent(event) {
     load();
     return send("Successfully added an entry.");
   }
-  if(txt.split(" ")[0] === "!leave") {
+  if(txt.split(" ")[0] === "!remove") {
     if(!admin.includes(event.source.userId)) {
       return send("You're not an Admin!");
     }
