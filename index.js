@@ -101,8 +101,7 @@ function handleEvent(event) {
     send("I'm a bot for 11A");
   }
   if(txt === "!agenda") {
-    console.log(agendaObject.template.columns);
-    return client.replyMessage(event.replyToken,[agendaObject, { type: 'text', text: agendaString }]);
+    return client.replyMessage(event.replyToken,agendaObject).catch((err)=> console.error(err));
     // send(agendaString);
   }
   if (txt === "!leave") {
