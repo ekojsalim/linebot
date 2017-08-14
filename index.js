@@ -90,8 +90,8 @@ function handleEvent(event) {
     send("I'm a bot for 11A");
   }
   if(txt === "!agenda") {
-    console.log(agendaObject);
-    return client.replyMessage(event.replyToken, [agendaObject,agendaString]);
+    console.log(agendaObject.template.columns);
+    return client.replyMessage(event.replyToken,agendaString);
     // send(agendaString);
   }
   if (txt === "!leave") {
