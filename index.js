@@ -76,7 +76,7 @@ function load() {
     if(err) {
       return console.error(err);
     }
-    if(!res && res.length === 0) {
+    if(!res || res.length === 0) {
       tasks = [];
       return;
     }
