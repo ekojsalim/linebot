@@ -41,7 +41,7 @@ let tasks = [{
 lesson: "biology",
 title:'Biology Quiz',
 text: 'Quiz Cells',
-date: moment("16-08-2017", "DD-MM-YYYY");
+date: moment("16-08-2017", "DD-MM-YYYY")
 }];
 
 tasks.sort((a,b) => {
