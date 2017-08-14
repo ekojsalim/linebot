@@ -42,13 +42,13 @@ let imgUrl = {
 };
 
 let tasks = [{
-  lesson: "biology",
+  lesson: "Biology",
   title:'Biology Quiz',
   text: 'Quiz Cells',
   date: moment("16-08-2017", "DD-MM-YYYY")}
   ,
   {
-  lesson: "religion",
+  lesson: "Religion",
   title:'Religion Quiz',
   text: 'Quiz Tiwah & Paritta',
   date: moment("24-08-2017", "DD-MM-YYYY")}
@@ -57,6 +57,11 @@ let agendaObject;
 let agendaString = '';
 
 function load() {
+  
+  tasks.filter((a) => {
+    a.date.isAfter(moment())
+  });
+
   tasks.sort((a,b) => {
     return a.date.isAfter(b.date);
   });
@@ -70,12 +75,12 @@ function load() {
         "columns": []
     }
   };
-  agendaString = '';
+  agendaString = '==AGENDA=='.concat("\n");
 
   tasks.forEach((a)=> {
     let tempObj = {
-      "thumbnailImageUrl": imgUrl[a.lesson],
-      "title": `${a.title} ${a.date.format("MMM Do YY")}`,
+      "thumbnailImageUrl": imgUrl[a.lesson.toLowerCase()],
+      "title": `${a.title} (${a.date.format("l")})`,
       "text": a.text,
       "actions": [{
                       "type": "postback",
@@ -84,7 +89,7 @@ function load() {
                   },],
     };
     agendaObject.template.columns.push(tempObj);
-    agendaString = agendaString.concat(a.lesson[0].toUpperCase() + a.lesson.slice(1) + "- " + a.text + `(${a.date.format("MMM Do YY")})`);
+    agendaString = agendaString.concat(a.lesson + " - " + a.text + `(${a.date.format("dddd, Do MMMM")})`);
     agendaString = agendaString.concat("\n");
   });
 }
@@ -118,8 +123,12 @@ function handleEvent(event) {
     // send(agendaString);
   }
   if(txt.split(" ")[0] === "!add") {
-    console.log("Called");
-    let x = txt.split(" ").slice(1);
+    let x = txt.split(" ").slice(1).join(" ").split(",=");
+
+    if(x.length !== 4){
+      return send("Invalid Syntax!");
+    }
+    
     let tempObj = {
       lesson: x[0],
       title: x[1],
@@ -128,13 +137,13 @@ function handleEvent(event) {
     };
     tasks.push(tempObj);
     load();
-    send("Successfully added an entry.");
+    return send("Successfully added an entry.");
   }
   if (txt === "!leave") {
-    send("How about no");
+    return send("How about no");
   }
   if (txt[0] === "!") {
-    return send("404: Command not found!");
+    return send("Command Not Found!");
   }
 }
 
