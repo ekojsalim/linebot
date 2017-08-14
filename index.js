@@ -123,12 +123,13 @@ function handleEvent(event) {
     // send(agendaString);
   }
   if(txt.split(" ")[0] === "!add") {
+    console.log(txt);
     let x = txt.split(" ").slice(1).join(" ").split(",=");
 
     if(x.length !== 4){
       return send("Invalid Syntax!");
     }
-    
+
     let tempObj = {
       lesson: x[0],
       title: x[1],
