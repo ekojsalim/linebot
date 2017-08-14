@@ -118,13 +118,11 @@ function handleEvent(event) {
     send("I'm a bot for 11A");
   }
   if(txt === "!agenda") {
-    console.log(JSON.stringify(agendaObject));
     return client.replyMessage(event.replyToken,[agendaObject, {type:"text", text: agendaString}]).catch((err)=> console.error(err));
     // send(agendaString);
   }
   if(txt.split(" ")[0] === "!add") {
-    console.log(txt);
-    let x = txt.split(" ").slice(1).join(" ").split(",=");
+    let x = event.message.text.split(" ").slice(1).join(" ").split(",=");
 
     if(x.length !== 4){
       return send("Invalid Syntax!");
