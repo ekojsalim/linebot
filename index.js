@@ -56,7 +56,7 @@ let agendaObject = {
       "columns": []
   }
 };
-let agendaString = ``;
+let agendaString = '';
 tasks.forEach((a)=> {
   let tempObj = {
     "thumbnailImageUrl": imgUrl[a.lesson],
@@ -91,7 +91,7 @@ function handleEvent(event) {
   }
   if(txt === "!agenda") {
     console.log(agendaObject);
-    return client.replyMessage(event.replyToken, agendaObject).catch((err)=> {console.error(err)});
+    return client.replyMessage(event.replyToken, { type: 'text', text: agendaString }).catch((err)=> {console.error(err)});
   }
   if (txt === "!leave") {
     send("How about no");
