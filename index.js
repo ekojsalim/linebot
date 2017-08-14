@@ -41,13 +41,17 @@ let imgUrl = {
   english: "https://i.imgbox.com/qS1Z7gla.jpg"
 };
 
+let admin = ["U42ca099742f266182506b30f9f306395"]
+
 let tasks = [{
+  id: "uwvi6",
   lesson: "Biology",
   title:'Biology Quiz',
   text: 'Quiz Cells',
   date: moment("16-08-2017", "DD-MM-YYYY")}
   ,
   {
+  id: "l668d",
   lesson: "Religion",
   title:'Religion Quiz',
   text: 'Quiz Tiwah & Paritta',
@@ -55,6 +59,15 @@ let tasks = [{
 ];
 let agendaObject;
 let agendaString = '';
+
+function makeid() {
+  var text = "";
+  var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 5; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return text;
+}
 
 function load() {
   
@@ -111,15 +124,30 @@ function handleEvent(event) {
       let helpString = 
       `Commands available:
       !about
-      !agenda`;
+      !agenda
+      !add(!addHelp to learn more)
+      !remove(Admin only)`;
       send(helpString);  
   }
-  if (txt === "!about") {
-    send("I'm a bot for 11A");
+  if(txt === "!addhelp") {
+    return send(`Format untuk add: !add (Subject),=(Title),=(Text),=(Date)
+    Date harus dalam format(DD/MM/YYYY), contoh: 01/01/2017
+    Subject harus menggunakan salah satu:
+    it
+    math
+    biology
+    physics
+    religion
+    bi
+    pkn
+    english
+    Caps gk masalah buat subject`);
+  };
+  if(txt === "!about") {
+    return send("I'm a bot for 11A");
   }
   if(txt === "!agenda") {
     return client.replyMessage(event.replyToken,[agendaObject, {type:"text", text: agendaString}]).catch((err)=> console.error(err));
-    // send(agendaString);
   }
   if(txt.split(" ")[0] === "!add") {
     let x = event.message.text.split(" ").slice(1).join(" ").split(",=");
@@ -129,6 +157,7 @@ function handleEvent(event) {
     }
 
     let tempObj = {
+      id: makeid(),
       lesson: x[0],
       title: x[1],
       text: x[2],
@@ -138,10 +167,20 @@ function handleEvent(event) {
     load();
     return send("Successfully added an entry.");
   }
-  if (txt === "!leave") {
-    return send("How about no");
+  if(txt.split(" ")[0] === "!leave") {
+    if(!admin.includes(event.source.userId)) {
+      return send("You're not an Admin!");
+    }
+    tasks = tasks.filter((a) => {
+      return a.id !== txt.split(" ")[1];
+    });
+    load();
+    return send("Removed Successfully");
   }
-  if (txt[0] === "!") {
+  if(txt === "!leave") {
+    return send("How about no?");
+  }
+  if(txt[0] === "!") {
     return send("Command Not Found!");
   }
 }
