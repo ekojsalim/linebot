@@ -76,8 +76,9 @@ function load() {
     if(err) {
       return console.error(err);
     }
-    if(!res) {
-      return tasks = [];
+    if(!res && res.length === 0) {
+      tasks = [];
+      return;
     }
     else {
       tasks = JSON.parse(res.toString());
