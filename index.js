@@ -101,6 +101,7 @@ function handleEvent(event) {
     send("I'm a bot for 11A");
   }
   if(txt === "!agenda") {
+    console.log(JSON.stringify(agendaObject));
     return client.replyMessage(event.replyToken,agendaObject).catch((err)=> console.error(err));
     // send(agendaString);
   }
