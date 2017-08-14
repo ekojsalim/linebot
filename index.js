@@ -91,7 +91,7 @@ function handleEvent(event) {
   }
   if(txt === "!agenda") {
     console.log(agendaObject);
-    return client.replyMessage(event.replyToken, { type: 'text', text: agendaString }).catch((err)=> {console.error(err)});
+    send(agendaString);
   }
   if (txt === "!leave") {
     send("How about no");
