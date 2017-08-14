@@ -89,7 +89,7 @@ function handleEvent(event) {
       agendaString.concat(a.text);
       agendaString.concat("\n");
     });
-    return client.replyMessage(event.replyToken, [agendaObject, {type: 'text',text: `agendaString`,}]);
+    return client.replyMessage(event.replyToken, agendaObject).catch((err)=> {console.error(err)});
   }
   if (txt === "!leave") {
     send("How about no");
