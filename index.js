@@ -68,9 +68,14 @@ tasks.forEach((a)=> {
     "thumbnailImageUrl": imgUrl[a.lesson],
     "title": `${a.title} ${a.date.format("MMM Do YY")}`,
     "text": a.text,
+    "actions": [{
+                    "type": "postback",
+                    "label": "Remind Later",
+                    "data": "action=buy&itemid=111"
+                },],
   };
   agendaObject.template.columns.push(tempObj);
-  agendaString = agendaString.concat(a.text + `(${a.date.format("MMM Do YY")})`);
+  agendaString = agendaString.concat(a.lesson[0].toUpperCase() + a.lesson.slice(1) + "- " + a.text + `(${a.date.format("MMM Do YY")})`);
   agendaString = agendaString.concat("\n");
 });
 
@@ -97,7 +102,7 @@ function handleEvent(event) {
   }
   if(txt === "!agenda") {
     console.log(agendaObject.template.columns);
-    return client.replyMessage(event.replyToken,{ type: 'text', text: agendaString });
+    return client.replyMessage(event.replyToken,[agendaObject, { type: 'text', text: agendaString }]);
     // send(agendaString);
   }
   if (txt === "!leave") {
