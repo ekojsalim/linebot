@@ -91,7 +91,7 @@ function handleEvent(event) {
   }
   if(txt === "!agenda") {
     console.log(agendaString);
-    send("");
+    send(agendaString);
   }
   if (txt === "!leave") {
     send("How about no");
