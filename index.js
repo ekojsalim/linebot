@@ -70,9 +70,18 @@ function makeid() {
   return text;
 }
 
+
 function load() {
   red.get("tasks", function(err, res) {
-    tasks = JSON.parse(res.toString());
+    if(err) {
+      return console.error(err);
+    }
+    if(!res) {
+      tasks = [];
+    }
+    else {
+      tasks = JSON.parse(res.toString());
+    }
     tasks.filter((a) => {
       a.date.isAfter(moment())
     });
