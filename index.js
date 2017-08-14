@@ -42,7 +42,13 @@ lesson: "biology",
 title:'Biology Quiz',
 text: 'Quiz Cells',
 date: moment("16-08-2017", "DD-MM-YYYY")
-}];
+},{
+lesson: "religion",
+title:'Religion Quiz',
+text: 'Quiz Tiwah & Paritta',
+date: moment("24-08-2017", "DD-MM-YYYY")
+}
+];
 
 tasks.sort((a,b) => {
 return a.date.isAfter(b.date);
@@ -91,7 +97,7 @@ function handleEvent(event) {
   }
   if(txt === "!agenda") {
     console.log(agendaObject.template.columns);
-    return client.replyMessage(event.replyToken,{ type: 'text', text: agendaString });
+    return client.replyMessage(event.replyToken,[agendaObject,{ type: 'text', text: agendaString }]);
     // send(agendaString);
   }
   if (txt === "!leave") {
