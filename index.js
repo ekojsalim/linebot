@@ -2,6 +2,7 @@
 
 const line = require('@line/bot-sdk');
 const express = require('express');
+const moment = require('moment');
 
 // create LINE SDK config from env variables
 const config = {
@@ -19,14 +20,32 @@ const app = express();
 // register a webhook handler with middleware
 // about the middleware, please refer to doc
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
-
 app.post('/webhook', line.middleware(config), (req, res) => {
   Promise
     .all(req.body.events.map(handleEvent))
     .then((result) => res.json(result));
+});
+
+let imgUrl = {
+  it: "https://cdn.pixabay.com/photo/2015/03/10/22/47/pc-667863_640.png",
+  math: "https://i.pinimg.com/originals/51/60/9c/51609c5ad31c0b46db2f5bf3c6d34d7d.jpg",
+  biology: "http://img.freepik.com/free-vector/biology-elements-design_1300-177.jpg?size=338&ext=jpg",
+  physics: "http://img.freepik.com/free-vector/background-about-physics_1284-698.jpg?size=338&ext=jpg",
+  religion: "https://cdn.dribbble.com/users/142196/screenshots/1094556/buddha.png",
+  bi: "https://i.imgbox.com/lviJnYVp.jpg",
+  pkn: "https://i.imgbox.com/bJfeoYQD.jpg",
+  english: "https://i.imgbox.com/qS1Z7gla.jpg"
+}
+
+let tasks = [{
+lesson: "biology",
+title:'Biology Quiz',
+text: 'Quiz Cells',
+date: moment("16-08-2017", "DD-MM-YYYY");
+}];
+
+tasks.sort((a,b) => {
+return a.date.isAfter(b.date);
 });
 
 // event handler
@@ -35,56 +54,47 @@ function handleEvent(event) {
     const msg = { type: 'text', text: text };
     return client.replyMessage(event.replyToken, msg);
   }
-  if (event.type !== 'message' || event.message.type !== 'text' ) {
+  if (event.type !== 'message' || 6yevent.message.type !== 'text' ) {
     // ignore non-text-message event
     return Promise.resolve(null);
   }
   let txt = event.message.text.toLowerCase();
   if (txt === "!help") {
-      send("Help not yet available");  
+      let helpString = 
+      `Commands available:
+      !about
+      !agenda`;
+      send(helpString);  
   }
   if (txt === "!about") {
     send("I'm a bot for 11A");
   }
   if(txt === "!agenda") {
-    return client.replyMessage(event.replyToken, {
+    let agendaObject = {
       "type": "template",
-      "altText": "Homeworks",
+      "altText": "Agenda",
       "template": {
           "type": "carousel",
-          "columns": [
-              {
-                "thumbnailImageUrl": "https://cdn.pixabay.com/photo/2015/03/10/22/47/pc-667863_640.png",
-                "title": "IT HW",
-                "text": `Due: Monday, 31 July 2017
-                Paper`,
-                "actions": [
-                    {
-                        "type": "postback",
-                        "label": "Remind Later",
-                        "data": "action=buy&itemid=111"
-                    }
-                ]
-              },
-              {
-                "thumbnailImageUrl": "https://i.pinimg.com/originals/51/60/9c/51609c5ad31c0b46db2f5bf3c6d34d7d.jpg",
-                "title": "Math Quiz",
-                "text": "Date: Monday, 31 July 2017",
-                "actions": [
-                    {
-                        "type": "postback",
-                        "label": "Remind Later",
-                        "data": "action=buy&itemid=222"
-                    }
-                ]
-              }
-          ]
+          "columns": []
       }
-    })
+    };
+    let agendaString = ``;
+    tasks.forEach((a)=> {
+      let tempObj = {
+        "thumbnailImageUrl": imgUrl[a.lesson],
+        "title": `${a.title} ${a.date.format("MMM Do YY")}`,
+        "text": a.text
+      };
+      agendaObject.template.columns.push(tempObj);
+      agendaString.concat(a.text);
+      agendaString.concat("\n");
+    });
+    return client.replyMessage(event.replyToken, [agendaObject, {type: 'text',text: agendaString}]);
   }
   if (txt === "!leave") {
     send("How about no");
   }
+  if (txt.includes)
   if (txt[0] === "!") {
     return send("404: Command not found!");
   }
