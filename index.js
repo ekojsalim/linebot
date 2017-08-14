@@ -102,27 +102,7 @@ function handleEvent(event) {
   }
   if(txt === "!agenda") {
     console.log(JSON.stringify(agendaObject));
-    return client.replyMessage(event.replyToken,{
-  "type": "template",
-  "altText": "this is a carousel template",
-  "template": {
-      "type": "carousel",
-      "columns": [
-          {
-            "thumbnailImageUrl": "https://example.com/bot/images/item1.jpg",
-            "title": "this is menu",
-            "text": "description",
-            "actions": [
-                {
-                    "type": "postback",
-                    "label": "Buy",
-                    "data": "action=buy&itemid=111"
-                }
-            ]
-          },
-      ]
-  }
-}).catch((err)=> console.error(err));
+    return client.replyMessage(event.replyToken,JSON.stringify(agendaObject)).catch((err)=> console.error(err));
     // send(agendaString);
   }
   if (txt === "!leave") {
