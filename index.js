@@ -118,6 +118,7 @@ function handleEvent(event) {
     // send(agendaString);
   }
   if(txt.split(" ")[0] === "!add") {
+    console.log("Called");
     let x = txt.split(" ").slice(1);
     let tempObj = {
       lesson: x[0],
