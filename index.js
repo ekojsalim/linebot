@@ -196,8 +196,11 @@ function handleEvent(event) {
     tasks = tasks.filter((a) => {
       return a.id !== txt.split(" ")[1];
     });
-    load();
-    return send("Removed Successfully");
+    return red.set("tasks", JSON.stringify(tasks), function(err,res) {
+      if(err) console.error(err);
+      load();
+      return send("Removed Successfully");
+    });
   }
   if(txt === "!leave") {
     return send("How about no?");
