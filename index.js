@@ -43,7 +43,7 @@ let imgUrl = {
   mandarin: "https://i.imgbox.com/tkpjwirp.jpg"
 };
 
-let admin = ["U42ca099742f266182506b30f9f306395"];
+let admin = ["U42ca099742f266182506b30f9f306395", "Uf49d8f2193880bf9f141dec90229e95f"];
 
 // let tasks = [{
 //   id: "uwvi6",
