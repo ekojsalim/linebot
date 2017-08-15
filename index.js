@@ -37,8 +37,7 @@ let imgUrl = {
   physics: "https://img.freepik.com/free-vector/background-about-physics_1284-698.jpg?size=338&ext=jpg",
   religion: "https://cdn.dribbble.com/users/142196/screenshots/1094556/buddha.png",
   bi: "https://i.imgbox.com/lviJnYVp.jpg",
-  // pkn: "https://i.imgbox.com/bJfeoYQD.jpg",
-  pkn: "https://cdn.dribbble.com/users/142196/screenshots/1094556/buddha.png",
+  pkn: "https://i.imgbox.com/bJfeoYQD.jpg",
   english: "https://i.imgbox.com/qS1Z7gla.jpg",
   chemistry: "https://i.imgbox.com/Ju3Cyw1J.jpg",
   mandarin: "https://i.imgbox.com/tkpjwirp.jpg"
@@ -90,12 +89,11 @@ function load() {
         a.date = moment(a.date);
         return a;
       });
+      tasks = tasks.filter((a) => {
+        return a.date.isAfter(moment())
+      });
       task = tasks.slice();
     }
-    console.log(task);
-    task = task.filter((a) => {
-      return a.date.isAfter(moment())
-    });
 
     task.sort((a,b) => {
       return a.date.isAfter(b.date);
@@ -150,7 +148,9 @@ function handleEvent(event) {
       !about
       !agenda
       !add(!addHelp to learn more)
-      !remove(Admin only)`;
+      !remove(Admin only)
+      !pop(Admin only)
+      !reset(Admin only)`;
       send(helpString);  
   }
   if(txt === "!addhelp") {
