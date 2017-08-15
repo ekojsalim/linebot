@@ -151,7 +151,7 @@ function handleEvent(event) {
       !remove(Admin only)
       !pop(Admin only)
       !reset(Admin only)`;
-      send(helpString);  
+      return send(helpString);  
   }
   if(txt === "!addhelp") {
     return send(`Format untuk add: !add (Subject),=(Title),=(Text),=(Date)
