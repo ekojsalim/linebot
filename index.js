@@ -117,7 +117,7 @@ function load() {
       let tempObj = {
         "thumbnailImageUrl": url,
         "title": `${a.title} (${a.date.format("l")})`,
-        "text": a.text + ` (#${a.id})`,
+        "text": `${a.text} - (#${a.id})`,
         "actions": [{
                         "type": "postback",
                         "label": "Remind Later",
