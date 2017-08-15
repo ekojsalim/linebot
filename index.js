@@ -94,7 +94,7 @@ function load() {
     }
     console.log(task);
     task = task.filter((a) => {
-      a.date.isAfter(moment())
+      return a.date.isAfter(moment())
     });
 
     task.sort((a,b) => {
