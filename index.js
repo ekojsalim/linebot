@@ -110,7 +110,7 @@ function load() {
       }
     };
     agendaString = '==AGENDA=='.concat("\n");
-
+    console.log(task);
     task.forEach((a)=> {
       let lessonValid = imgUrl[a.lesson.toLowerCase()];
       let url = lessonValid ? lessonValid : "https://cdn.pixabay.com/photo/2015/03/10/22/47/pc-667863_640.png";
