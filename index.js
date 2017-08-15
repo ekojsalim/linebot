@@ -85,16 +85,17 @@ function load() {
     }
     else {
       tasks = JSON.parse(res.toString());
-      tasks.map((a) => {
+      tasks = tasks.map((a) => {
         a.date = moment(a.date);
         return a;
       });
+      task = tasks.slice();
     }
-    tasks = tasks.filter((a) => {
+    task = task.filter((a) => {
       a.date.isAfter(moment())
     });
 
-    tasks.sort((a,b) => {
+    task.sort((a,b) => {
       return a.date.isAfter(b.date);
     });
 
@@ -109,7 +110,7 @@ function load() {
     };
     agendaString = '==AGENDA=='.concat("\n");
 
-    tasks.forEach((a)=> {
+    task.forEach((a)=> {
       let lessonValid = imgUrl[a.lesson.toLowerCase()];
       let url = lessonValid ? lessonValid : "https://cdn.pixabay.com/photo/2015/03/10/22/47/pc-667863_640.png";
       let tempObj = {
