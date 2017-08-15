@@ -63,6 +63,8 @@ let tasks = [];
 let agendaObject;
 let agendaString = '';
 
+moment.locale("id");
+
 function makeid() {
   var text = "";
   var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -109,7 +111,7 @@ function load() {
       }
     };
     agendaString = '==AGENDA=='.concat("\n");
-    let task5 = task.slice(4);
+    let task5 = task.slice(1,4);
     task5.forEach((a)=> {
       let lessonValid = imgUrl[a.lesson.toLowerCase()];
       let url = lessonValid ? lessonValid : "https://cdn.pixabay.com/photo/2015/03/10/22/47/pc-667863_640.png";
@@ -124,6 +126,8 @@ function load() {
                     },],
       };
       agendaObject.template.columns.push(tempObj);
+    });
+    task.forEach((a)=> {
       agendaString = agendaString.concat(a.lesson + " - " + a.text + `(${a.date.format("dddd, Do MMMM")})[#${a.id}]`);
       agendaString = agendaString.concat("\n");
     });
