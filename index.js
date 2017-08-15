@@ -176,7 +176,7 @@ function handleEvent(event) {
     if(tasks.length === 0) {
       return send("BEBAS!");
     }
-    return client.replyMessage(event.replyToken,[agendaObject, {type:"text", text: agendaString}]).catch((err)=> console.error(err));
+    return client.replyMessage(event.replyToken,[{type:"text", text: agendaString}]).catch((err)=> console.error(err));
   }
   if(txt.split(" ")[0] === "!add") {
     let x = event.message.text.split(" ").slice(1).join(" ").split(",=");
