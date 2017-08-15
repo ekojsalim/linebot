@@ -239,6 +239,9 @@ function handleEvent(event) {
   if(txt === "!getid") {
     return send(event.source.userId);
   }
+  if(txt === "!debug") {
+    return send(JSON.stringify(tasks));
+  }
   if(txt[0] === "!") {
     return send("Command Not Found!");
   }
