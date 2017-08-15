@@ -44,7 +44,7 @@ let imgUrl = {
   mandarin: "https://i.imgbox.com/tkpjwirp.jpg"
 };
 
-let admin = ["U42ca099742f266182506b30f9f306395"]
+let admin = ["U42ca099742f266182506b30f9f306395"];
 
 // let tasks = [{
 //   id: "uwvi6",
@@ -90,7 +90,7 @@ function load() {
         return a;
       });
     }
-    tasks.filter((a) => {
+    tasks = tasks.filter((a) => {
       a.date.isAfter(moment())
     });
 
@@ -211,6 +211,27 @@ function handleEvent(event) {
   }
   if(txt === "!leave") {
     return send("How about no?");
+  }
+  if(txt === "!pop") {
+    if(admin.includes(event.source.userId)) {
+      //remove last task
+      tasks.pop();
+      return red.set("tasks", JSON.stringify(tasks), function(err,res) {
+        if(err) console.error(err);
+        load();
+        return send("Removed Successfully");
+      });
+    }
+  }
+  if(txt === "!reset") {
+    if(admin.includes(event.source.userId)) {
+      tasks = [];
+      return red.set("tasks", JSON.stringify(tasks), function(err,res) {
+        if(err) console.error(err);
+        load();
+        return send("Reseted Successfully");
+      });
+    }
   }
   if(txt[0] === "!") {
     return send("Command Not Found!");
