@@ -76,6 +76,7 @@ function makeid() {
 
 function load() {
   red.get("tasks", function(err, res) {
+    let task;
     if(err) {
       return console.error(err);
     }
@@ -89,7 +90,7 @@ function load() {
         a.date = moment(a.date);
         return a;
       });
-      let task = tasks.slice();
+      task = tasks.slice();
     }
     task = task.filter((a) => {
       a.date.isAfter(moment())
