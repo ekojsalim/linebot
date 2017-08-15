@@ -89,7 +89,7 @@ function load() {
         a.date = moment(a.date);
         return a;
       });
-      task = tasks.slice();
+      let task = tasks.slice();
     }
     task = task.filter((a) => {
       a.date.isAfter(moment())
