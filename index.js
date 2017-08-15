@@ -148,6 +148,7 @@ function handleEvent(event) {
       !about
       !agenda
       !add(!addHelp to learn more)
+      !addHelp
       !remove(Admin only)
       !pop(Admin only)
       !reset(Admin only)`;
@@ -234,6 +235,9 @@ function handleEvent(event) {
         return send("Reseted Successfully");
       });
     }
+  }
+  if(txt === "!getid") {
+    return send(event.source.userId);
   }
   if(txt[0] === "!") {
     return send("Command Not Found!");
