@@ -162,7 +162,7 @@ function handleEvent(event) {
       return send(helpString);  
   }
   if(txt === "!addhelp") {
-    return send(`Format untuk add: !add (Subject),=(Title),=(Text),=(Date)
+    return send(`Format untuk add: !add (Subject);(Title);(Text);(Date)
     Date harus dalam format(DD/MM/YYYY), contoh: 01/01/2017
     Subject harus menggunakan salah satu(Caps Insensitive):
     it
@@ -175,7 +175,7 @@ function handleEvent(event) {
     english
     chemistry
     mandarin
-    Contoh: !add IT,=Presentation,=Topik sesuai group,=15-08-2017`);
+    Contoh: !add IT;Presentation;Topik sesuai group;15-08-2017`);
   };
   if(txt === "!about") {
     return send("I'm a bot for 11A");
@@ -187,7 +187,7 @@ function handleEvent(event) {
     return client.replyMessage(event.replyToken,[agendaObject, {type:"text", text: agendaString}]).catch((err)=> console.error(err));
   }
   if(txt.split(" ")[0] === "!add") {
-    let x = event.message.text.split(" ").slice(1).join(" ").split(",=");
+    let x = event.message.text.split(" ").slice(1).join(" ").split(";");
 
     if(x.length !== 4){
       return send("Invalid Syntax!");
