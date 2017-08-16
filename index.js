@@ -40,7 +40,8 @@ let imgUrl = {
   pkn: "https://i.imgbox.com/bJfeoYQD.jpg",
   english: "https://i.imgbox.com/qS1Z7gla.jpg",
   chemistry: "https://i.imgbox.com/Ju3Cyw1J.jpg",
-  mandarin: "https://i.imgbox.com/tkpjwirp.jpg"
+  mandarin: "https://i.imgbox.com/tkpjwirp.jpg",
+  music: "https://i.imgbox.com/QhsU1MRW.jpg"
 };
 
 let admin = ["U42ca099742f266182506b30f9f306395", "Uf49d8f2193880bf9f141dec90229e95f"];
@@ -128,7 +129,8 @@ function load() {
       agendaObject.template.columns.push(tempObj);
     });
     task.forEach((a)=> {
-      agendaString = agendaString.concat(a.lesson + " - " + a.text + `(${a.date.format("dddd, Do MMMM")})[#${a.id}]`);
+      agendaString = agendaString.concat(a.lesson).concat("\n");
+      agendaString = agendaString.concat("   - " + a.text + `(${a.date.format("dddd, Do MMMM")})[#${a.id}]`);
       agendaString = agendaString.concat("\n");
     });
   });
