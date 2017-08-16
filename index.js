@@ -129,7 +129,7 @@ function load() {
       agendaObject.template.columns.push(tempObj);
     });
     task.forEach((a)=> {
-      agendaString = agendaString.concat(a.lesson).concat("\n");
+      agendaString = agendaString.concat(a.lesson + " - " + a.title).concat("\n");
       agendaString = agendaString.concat("   - " + a.text + `(${a.date.format("dddd, Do MMMM")})[#${a.id}]`);
       agendaString = agendaString.concat("\n");
     });
