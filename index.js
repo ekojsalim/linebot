@@ -152,13 +152,15 @@ function handleEvent(event) {
   if (txt === "!help") {
       let helpString = 
       `Commands available:
-      !about
-      !agenda
-      !add(!addHelp to learn more)
-      !addHelp
-      !remove(Admin only)
-      !pop(Admin only)
-      !reset(Admin only)`;
+        !about
+        !agenda(Menunjukan 5 terdekat)
+        !agendaText(Plaintext semua task)
+        !agendaBoth(!agenda + !agendaText)
+        !add(!addHelp to learn more)
+        !addHelp
+        !remove(Admin only)
+        !pop(Admin only)
+        !reset(Admin only)`;
       return send(helpString);  
   }
   if(txt === "!addhelp") {
@@ -184,7 +186,16 @@ function handleEvent(event) {
     if(tasks.length === 0) {
       return send("BEBAS!");
     }
+    return client.replyMessage(event.replyToken,agendaObject).catch((err)=> console.error(err));
+  }
+  if(txt === "!agendaboth") {
+    if(tasks.length === 0) {
+      return send("BEBAS!");
+    }
     return client.replyMessage(event.replyToken,[agendaObject, {type:"text", text: agendaString}]).catch((err)=> console.error(err));
+  }
+  if(txt === "!agendatext") {
+    return send(agendaString);
   }
   if(txt.split(" ")[0] === "!add") {
     let x = event.message.text.split(" ").slice(1).join(" ").split(";");
