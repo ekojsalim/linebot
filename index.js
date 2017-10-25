@@ -10,8 +10,8 @@ var red = redis.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true})
 
 // create LINE SDK config from env variables
 const config = {
-  channelAccessToken: 'lwPQ/vNSr81ipI9W2/zBzjM6rCtCZ8OPIBWTRwA0JOYLBr1f68Z5Dge9GZ4hPuIPbapk15iIyen6srVx2JBQqKrgTZ8MKMv0xjJOlpWqTKvIKEdpp6A7gxW0WxcxMRu533V+tzQzZrBs6TBKcNrhwgdB04t89/1O/w1cDnyilFU=',
-  channelSecret: 'b2f6b6972b491191bd93d1a9b4c19a06',
+  channelAccessToken: 'secrety-stuffs',
+  channelSecret: 'secrety-stuffs',
 };
 
 // create LINE SDK client
